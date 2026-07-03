@@ -5,6 +5,7 @@ services:
     plan: free
     rootDir: grocery_project
     buildCommand: pip install -r requirements-prod.txt && python manage.py collectstatic --noinput
+    releaseCommand: python manage.py migrate --noinput
     startCommand: gunicorn grocery.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: PYTHON_VERSION
