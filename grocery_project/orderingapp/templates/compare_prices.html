@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Compare Prices{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-10">
+    <div class="card shadow-sm border-0 rounded-4">
+      <div class="card-body p-4 p-md-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h3 class="section-title mb-1">Linganisha Bei</h3>
+            <p class="text-muted mb-0">Tazama bidhaa zako na ulinganishe bei kwa urahisi kutoka kwa wauzaji tofauti.</p>
+          </div>
+          <span class="badge bg-success-subtle text-success fw-semibold">Real-time</span>
+        </div>
+
+        {% if products %}
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead class="table-success">
+                <tr>
+                  <th>Bidhaa</th>
+                  <th>Muuzaji</th>
+                  <th>Kundi</th>
+                  <th>Bei</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for product in products %}
+                  <tr>
+                    <td class="fw-semibold">{{ product.name }}</td>
+                    <td>{{ product.vendor.shop_name }}</td>
+                    <td>{{ product.category.name }}</td>
+                    <td class="text-danger fw-bold">TZS {{ product.price }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div class="alert alert-info">Hakuna bidhaa zilizowekwa bado. Weka bidhaa kupitia admin panel ili zionekane kwenye wavuti.</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

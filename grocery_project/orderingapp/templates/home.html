@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block title %}Nyumbani - Smart Grocery{% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+    <div class="col-lg-8">
+        <div class="hero-section p-4 p-md-5">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <span class="badge bg-success-subtle text-success-emphasis mb-3 px-3 py-2">Bei nzuri za kila siku</span>
+                    <h1 class="display-6 fw-bold mb-3">Pata bidhaa za msingi kwa bei ya ushindani.</h1>
+                    <p class="lead mb-4">Linganisha bidhaa kama unga, mchele, mafuta na zaidi kutoka kwa wauzaji tofauti kwa urahisi na kwa kasi.</p>
+                    <div class="d-flex flex-wrap justify-content-start gap-2 mb-3">
+                        <a href="{% url 'home' %}" class="btn btn-outline-light btn-lg">Nyumbani</a>
+                        <a href="{% url 'compare_prices' %}" class="btn btn-success btn-lg">Linganisha Bei</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'cart' %}" class="btn btn-outline-light btn-lg">Kikapu</a>
+                            <a href="{% url 'orders' %}" class="btn btn-outline-light btn-lg">Oda Zangu</a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg">Ingia</a>
+                            <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg">Sajili</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-5 mt-4 mt-lg-0">
+                    <div class="info-panel p-4 rounded-4">
+                        <h5 class="fw-bold mb-3">Kwa nini watu hupenda Smart Grocery?</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">✅ Bei za sasa kutoka kwa wauzaji tofauti</li>
+                            <li class="mb-2">✅ Uwekaji wa bidhaa kwenye kikapu kwa haraka</li>
+                            <li>✅ Oda rahisi na ya ufanisi zaidi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-0 rounded-4 h-100">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0">Haraka</h5>
+                    <span class="badge bg-success-subtle text-success">Mpya</span>
+                </div>
+                <div class="d-grid gap-2">
+                    <a href="{% url 'compare_prices' %}" class="btn btn-outline-success">Linganisha Bei</a>
+                    <a href="{% url 'cart' %}" class="btn btn-outline-secondary">Angalia Kikapu</a>
+                    <a href="{% url 'orders' %}" class="btn btn-outline-dark">Oda Zangu</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card dashboard-card">
+            <div class="card-body d-flex align-items-center gap-3">
+                <div class="icon-badge">🛒</div>
+                <div>
+                    <div class="text-muted small">Bidhaa Zilizopo</div>
+                    <h3 class="fw-bold mt-1 mb-0">{{ products|length }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card dashboard-card">
+            <div class="card-body d-flex align-items-center gap-3">
+                <div class="icon-badge">🏪</div>
+                <div>
+                    <div class="text-muted small">Wauzaji</div>
+                    <h3 class="fw-bold mt-1 mb-0">{% if products %}{{ products|length }}{% else %}0{% endif %}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card dashboard-card">
+            <div class="card-body d-flex align-items-center gap-3">
+                <div class="icon-badge">✅</div>
+                <div>
+                    <div class="text-muted small">Status</div>
+                    <h3 class="fw-bold mt-1 mb-0 text-success">Active</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="section-title mb-0">Bidhaa Zinazopatikana</h3>
+    <a href="{% url 'compare_prices' %}" class="text-success fw-semibold">Angalia Bei Zote</a>
+</div>
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+        <div class="card product-card h-100 shadow-sm">
+            {% if product.name|lower == 'mchele' %}
+                <img src="https://images.unsplash.com/photo-1522770179533-24471fcdba45?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Mchele">
+                <span class="image-label">Mchele</span>
+            {% elif product.name|lower == 'mafuta' %}
+                <img src="https://images.unsplash.com/photo-1586201375754-6cf811ad3542?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Mafuta">
+                <span class="image-label">Mafuta</span>
+            {% elif product.name|lower == 'unga' %}
+                <img src="https://images.unsplash.com/photo-1585010663756-b275d6d2e957?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Unga">
+                <span class="image-label">Unga</span>
+            {% elif product.name|lower == 'maharage' %}
+                <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Mahharage">
+                <span class="image-label">Mahharage</span>
+            {% elif product.name|lower == 'karika' %}
+                <img src="https://images.unsplash.com/photo-1562967916-eb82221dfb58?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Karika">
+                <span class="image-label">Karika</span>
+            {% elif forloop.first %}
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Smart Grocery">
+            {% else %}
+                <img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="{{ product.name }}">
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div>
+                        <h5 class="card-title fw-bold mb-1">{{ product.name }}</h5>
+                        <p class="card-text text-muted mb-0">{{ product.category.name }}</p>
+                    </div>
+                    <span class="badge bg-success-subtle text-success fw-semibold">{{ product.vendor.shop_name }}</span>
+                </div>
+                <h4 class="text-danger fw-bold mb-3">TZS {{ product.price }} /=</h4>
+                <p class="text-secondary small mb-3">Muuzaji: {{ product.vendor.shop_name }}</p>
+                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-outline-success mt-auto">Ongeza kwenye Kikapu</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">Hakuna bidhaa zilizowekwa bado. Weka bidhaa kupitia admin panel ili zionekane kwenye wavuti.</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
