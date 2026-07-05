@@ -1,1 +1,4 @@
 -r grocery_project/requirements.txt
+git add requirements.txt
+git commit -m "Remove binwalk dependency"
+git push origin master
