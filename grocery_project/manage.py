@@ -17,6 +17,7 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
+
 # Weka nambari hii juu ya block ya "if __name__ == '__main__':"
 import os
 from django.contrib.auth import get_user_model
@@ -24,9 +25,9 @@ from django.contrib.auth import get_user_model
 def create_or_reset_admin():
     User = get_user_model()
     # Badilisha 'admin' kuwa username ya admin wako kama unaijua
-    username = 'admin' 
-    password = 'PasswordYakoMpya123!' # Weka password unayoitaka hapa
-    email = 'admin@example.com'
+    username = 'jolinyo' 
+    password = 'jolinyo001' # Weka password unayoitaka hapa
+    email = 'jolinyoalex@gmail.com'
 
     user = User.objects.filter(username=username).first()
     if user:
