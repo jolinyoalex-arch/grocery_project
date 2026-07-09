@@ -1,22 +1,23 @@
-#!/usr/bin/env python3
-"""Django's command-line utility for administrative tasks."""
 import os
-import sys
+import django
 
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'grocery.settings') # Hakikisha jina la mradi wako lipo sahihi hapa
+django.setup()
 
-def main():
-    """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'grocery.settings')
-    try:
-        from django.core.management import execute_from_command_line
-    except ImportError as exc:
-        raise ImportError(
-            "Couldn't import Django. Are you sure it's installed and "
-            "available on your PYTHONPATH environment variable? Did you "
-            "forget to activate a virtual environment?"
-        ) from exc
-    execute_from_command_line(sys.argv)
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
+username = 'admin_mpya'
+email = 'admin@gmail.com'
+password = 'PasswordYako123!'
 
-if __name__ == '__main__':
-    main()
+if not User.objects.filter(username=username).exists():
+    print(f"Inatengeneza admin: {username}")
+    User.objects.create_superuser(username, email, password)
+    print("Admin ametengenezwa kikamilifu!")
+else:
+    print("Admin tayari yupo, inabadilisha password...")
+    user = User.objects.get(username=username)
+    user.set_password(password)
+    user.save()
+    print("Password imebadilishwa!")
