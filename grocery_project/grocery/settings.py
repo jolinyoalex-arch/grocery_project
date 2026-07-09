@@ -177,19 +177,4 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@grocery.com')
 
 # In production, use a proper email service
 if IS_PRODUCTION and EMAIL_HOST_USER:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-def reset():
-    User = get_user_model()
-    username = 'john'
-    password = 'jolinyo001' # Hii ndio itakuwa password yako mpya
-    email = 'john@gmail.com'
-
-    user = User.objects.filter(username=username).first()
-    if user:
-        user.set_password(password)
-        user.save()
-        print(f"✅ SUCCESS: Password ya admin '{username}' imebadilishwa kikamilifu kule Render!")
-    else:
-        User.objects.create_superuser(username=username, email=email, password=password)
-        print(f"✅ SUCCESS: Admin mpya '{username}' ametengenezwa kikamilifu kule Render!")
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend',
